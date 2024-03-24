@@ -1,0 +1,22 @@
+name: "Test Nix Flake"
+on:
+  push:
+  pull_request:
+jobs:
+  nix:
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+        - ubuntu-latest
+        - macos-latest
+    name: Nix on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: cachix/install-nix-action@v26
+
+    - run: nix build nixpkgs/haskell-updates#haskellPackages.tls_2_0_1
+
+    - run: nix build
+    - run: nix flake check

@@ -1,7 +1,6 @@
 module Main where
 
-import Data.Text
+import Network.TLS
 
 main :: IO ()
-main = do
-  putStrLn "Hello, Haskell!"
+main = putStrLn "Hello, Haskell!"
